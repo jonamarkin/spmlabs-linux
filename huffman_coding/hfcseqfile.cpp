@@ -6,6 +6,7 @@
 #include <fstream>
 using namespace std;
 using namespace std::chrono;
+#include "utimer.cpp"
 
 #define MAX_TREE_HT 50
 
@@ -99,7 +100,9 @@ void HuffmanCodes(char item[], int freq[], int size, ofstream &outputFile)
 
 int main(int argc, char *argv[])
 {
-    auto start = high_resolution_clock::now();
+    long elapsed_time = 0;
+    utimer timer1("Sequential computation", &elapsed_time);
+    // auto start = high_resolution_clock::now();
     if (argc < 3)
     {
         cout << "Usage: " << argv[0] << " <input_file> <output_file>" << endl;
@@ -143,7 +146,7 @@ int main(int argc, char *argv[])
     cout << "Char | Huffman code ";
     cout << "\n----------------------\n";
 
-        // Create the Huffman codes and write them to the output file
+    // Create the Huffman codes and write them to the output file
     ofstream outputFile(outputFilePath);
     if (!outputFile)
     {
@@ -154,10 +157,10 @@ int main(int argc, char *argv[])
     HuffmanCodes(arr.data(), freq.data(), size, outputFile);
     outputFile.close();
 
-    auto stop = high_resolution_clock::now();
-    auto duration = duration_cast<milliseconds>(stop - start);
+    // auto stop = high_resolution_clock::now();
+    // auto duration = duration_cast<milliseconds>(stop - start);
 
-    cout << "Execution time: " << duration.count() << " milliseconds" << endl;
+    // cout << "Execution time: " << duration.count() << " milliseconds" << endl;
 
     return 0;
 }
